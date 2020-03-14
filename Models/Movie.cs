@@ -4,6 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RazorPagesMovie.Models
 {
+    public enum Rating
+    {
+        G,
+        PG,
+        M,
+        M15,
+        R
+    }
     public class Movie
     {
         public int ID { get; set; }
@@ -21,7 +29,6 @@ namespace RazorPagesMovie.Models
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
 
-        [RegularExpression(@"^[A-Z]+[a-zA-Z0-9""'\s-]*$"), StringLength(5)]
-        public string Rating { get; set; }
+        public Rating Rating { get; set; }
     }
 }

@@ -9,11 +9,21 @@ namespace RazorPagesMovie.Data
 {
     public class RazorPagesMovieContext : DbContext
     {
-        public RazorPagesMovieContext (DbContextOptions<RazorPagesMovieContext> options)
+        public RazorPagesMovieContext(DbContextOptions<RazorPagesMovieContext> options)
             : base(options)
         {
         }
 
         public DbSet<RazorPagesMovie.Models.Movie> Movie { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .Entity<Movie>()
+                .Property(p => p.Rating)
+                .HasConversion(
+                    v => v.ToString(),
+                    v => (Rating)Enum.Parse(typeof(Rating), v));
+
+        }
     }
 }
